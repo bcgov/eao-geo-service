@@ -36,20 +36,6 @@
       }
     },
     {
-      "kind": "Route",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "${NAME}"
-      },
-      "spec": {
-        "host": "${APPLICATION_DOMAIN}",
-        "to": {
-          "kind": "Service",
-          "name": "${NAME}"
-        }
-      }
-    },
-    {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
@@ -103,8 +89,13 @@
                   }
                 ],
                 "resources": {
+                  "requests": {
+                    "cpu": "10m",
+                    "memory": "100Mi"
+                  },
                   "limits": {
-                    "memory": "${MEMORY_LIMIT}"
+                    "cpu": "300m",
+                    "memory": "1Gi"
                   }
                 }
               }
@@ -127,12 +118,6 @@
       "displayName": "Memory Limit",
       "description": "Maximum amount of memory the Node.js container can use.",
       "value": "512Mi"
-    },
-    {
-      "name": "APPLICATION_DOMAIN",
-      "displayName": "Application Hostname",
-      "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
-      "value": ""
     },
     {
       "name": "PORT",
