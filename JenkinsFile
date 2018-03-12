@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('build eao-geo-service'){
+            steps {
+                openshiftBuild(bldCfg: 'eao-geo-service', showBuildLogs: 'true')
+            }
+        }
+        stage('tag eao-geo-service'){
+            steps {
+                openshiftTag(srcStream: 'eao-geo-service', srcTag: 'latest', destStream: 'eao-geo-service', destTag: 'dev')
+            }
+        }
+    }
+}
